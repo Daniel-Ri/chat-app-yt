@@ -8,11 +8,12 @@ import connectToMongoDB from "./db/connectToMongoDB";
 
 const app: Express = express();
 
+app.use(express.json()); // to parse the incoming requests with JSON payloads (from req.body)
+app.use("/api/auth", authRoutes);
+
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
 });
-
-app.use("/api/auth", authRoutes);
 
 app.listen(env.PORT, () => {
   connectToMongoDB();

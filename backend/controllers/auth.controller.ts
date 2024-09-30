@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import User from "../models/user.model";
 import bcrypt from "bcryptjs";
+import generateTokenAndSetCookie from "../utils/generateToken";
 
 export const signup = async (req: Request, res: Response) => {
   try {
@@ -44,6 +45,7 @@ export const signup = async (req: Request, res: Response) => {
     });
 
     if (newUser) {
+      generateTokenAndSetCookie(newUser._id, res);
       await newUser.save();
 
       res.status(201).json({

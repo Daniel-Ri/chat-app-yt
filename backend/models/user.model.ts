@@ -1,6 +1,18 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 
-const userSchema = new mongoose.Schema(
+// Define a TypeScript interface representing a user document in MongoDB
+export interface IUser extends Document {
+  _id: Types.ObjectId;
+  fullName: string;
+  username: string;
+  password: string;
+  gender: "male" | "female"; // Gender is limited to "male" or "female" based on your enum
+  profilePic: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+const userSchema = new mongoose.Schema<IUser>(
   {
     fullName: {
       type: String,
@@ -30,6 +42,6 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model<IUser>("User", userSchema);
 
 export default User;

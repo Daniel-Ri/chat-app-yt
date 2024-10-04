@@ -6,6 +6,11 @@ export type SignUpForm = {
   gender: "male" | "female" | "";
 };
 
+export interface LoginForm {
+  username: string;
+  password: string;
+}
+
 export interface AuthUser {
   _id: string;
   fullName: string;

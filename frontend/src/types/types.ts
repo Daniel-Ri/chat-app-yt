@@ -5,3 +5,10 @@ export type SignUpForm = {
   confirmPassword: string;
   gender: "male" | "female" | "";
 };
+
+export interface AuthUser {
+  _id: string;
+  fullName: string;
+  username: string;
+  profilePic: string;
+}

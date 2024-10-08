@@ -45,3 +45,5 @@ export interface Message {
 }
 
 export type SendMessageResponse = Message | ErrorResponse;
+
+export type GetMessagesResponse = Message[] | ErrorResponse;

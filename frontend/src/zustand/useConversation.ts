@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { ConversationUser } from "../types/types";
+import { ConversationUser, Message } from "../types/types";
 
 // Define the shape of the conversation state
 interface ConversationState {
@@ -7,8 +7,8 @@ interface ConversationState {
   setSelectedConversation: (
     selectedConversation: ConversationUser | null
   ) => void;
-  messages: any[]; // Replace `any` with a more specific type if possible
-  setMessages: (messages: any[]) => void; // Replace `any` with a more specific type if possible
+  messages: Message[];
+  setMessages: (messages: Message[]) => void;
 }
 
 const useConversation = create<ConversationState>((set) => ({

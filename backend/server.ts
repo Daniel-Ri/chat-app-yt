@@ -3,6 +3,7 @@ dotenv.config();
 
 import cookieParser from "cookie-parser";
 import express, { Request, Response } from "express";
+import path from "path";
 import env from "./config/env";
 import connectToMongoDB from "./db/connectToMongoDB";
 import authRoutes from "./routes/auth.routes";
@@ -17,9 +18,13 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
-});
+if (env.NODE_ENV == "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+  app.get("*", (req: Request, res: Response) => {
+    res.sendFile(path.join(__dirname, "..", "frontend", "dist", "index.html"));
+  });
+}
 
 server.listen(env.PORT, () => {
   connectToMongoDB();

@@ -35,6 +35,7 @@ export interface ErrorResponse {
 export type GetConversationsResponse = ConversationUser[] | ErrorResponse;
 
 export interface Message {
+  shouldShake?: boolean;
   _id: string;
   senderId: string;
   receiverId: string;

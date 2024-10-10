@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { IUser } from "../models/user.model";
 import Conversation from "../models/conversation.model";
 import Message from "../models/message.model";
+import { getReceiverSocketId, io } from "../socket/socket";
 
 interface CustomRequest extends Request<{ id: string }> {
   user?: IUser;
@@ -33,10 +34,15 @@ export const sendMessage = async (req: CustomRequest, res: Response) => {
       conversation.messages.push(newMessage._id);
     }
 
-    // TODO: Socket IO Functionality will go here
-
     // This will run in parallel
     await Promise.all([conversation.save(), newMessage.save()]);
+
+    // TODO: Socket IO Functionality will go here
+    const receiverSocketId = getReceiverSocketId(receiverId);
+    if (receiverSocketId) {
+      // io.to(<socket_id>).emit() used to send events to specific client
+      io.to(receiverSocketId).emit("newMessage", newMessage);
+    }
 
     res.status(201).json(newMessage);
   } catch (error) {

@@ -4,7 +4,10 @@
   "description": "Reference: [As a Programmer Youtube](https://www.youtube.com/watch?v=HwCqsOis894)",
   "main": "server.js",
   "scripts": {
-    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend && npx tsc",
+    "install-all": "npm install && npm install --prefix frontend && npm install -D --prefix frontend",
+    "build-backend": "npx tsc",
+    "build-frontend": "npm run build --prefix frontend",
+    "build": "npm run install-all && npm run build-frontend && npm run build-backend",
     "start": "node dist/server.js",
     "dev": "nodemon backend/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"

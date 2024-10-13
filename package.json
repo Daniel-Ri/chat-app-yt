@@ -4,9 +4,11 @@
   "description": "Reference: [As a Programmer Youtube](https://www.youtube.com/watch?v=HwCqsOis894)",
   "main": "server.js",
   "scripts": {
-    "install-all": "npm install --production=false && npm install --production=false --prefix frontend",
+    "install-all-vercel": "npm install --production=false && npm install --production=false --prefix frontend",
+    "install-all": "npm install && npm install --prefix frontend",
     "build-backend": "npx tsc",
     "build-frontend": "npm run build --prefix frontend",
+    "build-vercel": "npm run install-all-vercel && npm run build-frontend && npm run build-backend",
     "build": "npm run install-all && npm run build-frontend && npm run build-backend",
     "start": "node dist/server.js",
     "dev": "nodemon backend/server.ts",
